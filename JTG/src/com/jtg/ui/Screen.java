@@ -32,34 +32,19 @@ public class Screen {
 			@Styles( alignment = "center" )
 			VBox vcenter = new VBox() {
 
+				@ID("pane")
 				@Styles(
-					target="Circle",
+					target="Circle, Label",
 					state="hover",
 					cursor="hand"
 				)
 				@Styles( target="Circle", fill = "red" )
 				@Styles( target ="Line", stroke = "black" )
-				Pane pane = new Pane() {
-	
-					// ----- LINHAS (arestas) -----
-			        Line l1 = new Line(0, 0, 20, 20); // c1 -> c2
-			        Line l2 = new Line(20, 20, 40, 10); // c2 -> c3
-			        Line l3 = new Line(40, 10, 60, 30); // c3 -> c4
-			        Line l4 = new Line(20, 20, 20, 50); // c2 -> c5
-			        Line l5 = new Line(20, 50, 60, 30); // c5 -> c4
-
-			        // ----- CIDADES (pontos) -----
-			        Circle c1 = new Circle(0, 0, 4); // cidade 1
-			        Circle c2 = new Circle(20, 20, 4); // cidade 2
-			        Circle c3 = new Circle(40, 10, 4); // cidade 3
-			        Circle c4 = new Circle(60, 30, 4); // cidade 4
-			        Circle c5 = new Circle(20, 50, 4); // cidade 5
-
-				};
+				Pane pane;
 
 			};
 		};
-		
+
 		@Styles(
 			background_color = "#f4f4f4",
 			border_color = "#000",
@@ -68,7 +53,7 @@ public class Screen {
 		)
 		@Layout( region = "right" )
 		BorderPane control = new BorderPane() {
-			
+
 			@Styles(
 				font_size = "18",
 				font_weight = "bold"
@@ -95,36 +80,16 @@ public class Screen {
 					Label lbl = new Label( "Saida:" );
 
 					@ID("of-destination")
-					ComboBox<String> box = new ComboBox<>(
-						FXCollections.observableArrayList(
-							"OP-1",
-							"OP-2",
-							"OP-3",
-							"OP-4",
-							"OP-5"
-						)
-					);
-					
-					{ box.setValue( box.getItems().get(0) ); }
+					ComboBox<String> box;
 
 				};
-				
+
 				VBox box_to_destination = new VBox() {
 
 					Label lbl = new Label( "Destino:" );
-					
+
 					@ID("to-destination")
-					ComboBox<String> box = new ComboBox<>(
-						FXCollections.observableArrayList(
-							"OP-1",
-							"OP-2",
-							"OP-3",
-							"OP-4",
-							"OP-5"
-						)
-					);
-					
-					{ box.setValue( box.getItems().get(0) ); }
+					ComboBox<String> box;
 
 				};
 
