@@ -22,28 +22,17 @@ public class Screen {
 
 	BorderPane root = new BorderPane() {
 
+		@ID("pane")
 		@Styles(
 			alignment = "center",
 			border_color = "#000",
 			border_radius = "5%"
 		)
-		@Layout( region = "center" )
-		HBox hcenter = new HBox() {
-			@Styles( alignment = "center" )
-			VBox vcenter = new VBox() {
-
-				@ID("pane")
-				@Styles(
-					target="Circle, Label",
-					state="hover",
-					cursor="hand"
-				)
-				@Styles( target="Circle", fill = "red" )
-				@Styles( target ="Line", stroke = "black" )
-				Pane pane;
-
-			};
-		};
+		@Styles( target="Circle", fill = "red" )
+		@Styles( target="Line", stroke = "black" )
+		@Styles( target="Circle", state="hover", cursor="hand" )
+		@Layout( region= "center" )
+		Pane pane = new Pane();
 
 		@Styles(
 			background_color = "#f4f4f4",
@@ -113,7 +102,7 @@ public class Screen {
 		};
 
 		{
-			setMargin(hcenter, new Insets( 10, 10, 10, 10));
+			setMargin(pane, new Insets( 10, 10, 10, 10));
 			setMargin(control, new Insets( 10, 10, 10, 10));
 		}
 

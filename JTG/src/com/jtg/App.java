@@ -1,6 +1,8 @@
 package com.jtg;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.jdm.Document;
@@ -22,21 +24,38 @@ public final class App extends Application {
 
 	public static void main(String[] args) { launch(args); }
 
-	ComboBox<String> combo;
+	static int ofSetY = 500;
 
-	// ----- CIDADES (pontos) -----
 	static Cidade[] cidades = {
-	        new Cidade("Cidade - A",  0,  0),
-	        new Cidade("Cidade - B", 20, 20),
-	        new Cidade("Cidade - C", 40, 10),
-	        new Cidade("Cidade - D", 60, 30),
-	        new Cidade("Cidade - E", 20, 50),
-	        new Cidade("Cidade - F", 80, 70), // cidade 6 :: teste
+	    new Cidade("Arad",            91, ofSetY - 492),
+	    new Cidade("Zerind",         108, ofSetY - 531),
+	    new Cidade("Oradea",         131, ofSetY - 571),
+	    new Cidade("Sibiu",          207, ofSetY - 457),
+	    new Cidade("Timisoara",       94, ofSetY - 410),
+	    new Cidade("Lugoj",          165, ofSetY - 379),
+	    new Cidade("Mehadia",        168, ofSetY - 339),
+	    new Cidade("Drobeta",        165, ofSetY - 299),
+	    new Cidade("Craiova",        253, ofSetY - 288),
+	    new Cidade("Rimnicu Vilcea", 233, ofSetY - 410),
+	    new Cidade("Fagaras",        305, ofSetY - 449),
+	    new Cidade("Pitesti",        320, ofSetY - 368),
+	    new Cidade("Bucareste",      400, ofSetY - 327),
+	    new Cidade("Giurgiu",        375, ofSetY - 270),
+	    new Cidade("Urziceni",       456, ofSetY - 350),
+	    new Cidade("Hirsova",        534, ofSetY - 350),
+	    new Cidade("Eforie",         562, ofSetY - 293),
+	    new Cidade("Vaslui",         509, ofSetY - 444),
+	    new Cidade("Iasi",           473, ofSetY - 506),
+	    new Cidade("Neamt",          406, ofSetY - 537)
 	};
+
+	Map<String, Cidade> map = new HashMap<>();
+
+	ComboBox<String> combo;
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Document doc = new Document( Screen.class, (p) -> { return new Scene(p, 800, 500 ); } );
+		Document doc = new Document( Screen.class, (p) -> { return new Scene(p, 770, 400 ); } );
 
 		stage.setTitle( "App - Trabalho");
 
@@ -52,21 +71,20 @@ public final class App extends Application {
 
 		Pane pane = doc.getNodeById("pane");
 
-		combo = of;
-
 		of.setOnMouseClicked( e -> combo = of );
 
 		to.setOnMouseClicked( e -> combo = to );
 
-		cidades[0].adddAdjacentes( cidades[1] );
+		combo = of;
 
-		cidades[1].adddAdjacentes( cidades[0], cidades[2], cidades[4] );
+		for (Cidade cidade : cidades) {
+		    map.put(cidade.name, cidade);
+		}
 
-		cidades[2].adddAdjacentes( cidades[1], cidades[3] );
+		adjacentes();
 
-		cidades[3].adddAdjacentes( cidades[2], cidades[4] );
-
-		cidades[4].adddAdjacentes( cidades[1], cidades[3] );
+		int ofsetX = 65;
+		int ofsetY = 100;
 
 	    for ( Cidade cidade : cidades ) {
 
@@ -79,7 +97,7 @@ public final class App extends Application {
 	            if ( ligadas.contains(key1) || ligadas.contains(key2) ) continue;
 
 	            else {
-	            	Line line = new Line( cidade.x, cidade.y, a.x, a.y );
+	            	Line line = new Line( cidade.x - ofsetX, cidade.y + ofsetY, a.x  - ofsetX, a.y + ofsetY );
 
 		            pane.getChildren().add(line);
 
@@ -88,15 +106,15 @@ public final class App extends Application {
 
 	        }
 
-	        Circle c = new Circle( cidade.x, cidade.y, 4 );
+	        Circle c = new Circle( cidade.x - ofsetX, cidade.y + ofsetY, 4 );
 
 			Label l = new Label( cidade.name );
 
 			ob.add( cidade.name );
 
-			l.setLayoutX( cidade.x );
+			l.setLayoutX( (cidade.x - ofsetX) + 5);
 
-			l.setLayoutY( cidade.y );
+			l.setLayoutY( (cidade.y + ofsetY) + 5);
 
 			pane.getChildren().add( l );
 
@@ -113,8 +131,114 @@ public final class App extends Application {
 
 		of.setValue( ob.get(0) );
 		to.setValue( ob.get(0) );
-
+		
 		stage.show();
+	}
+	
+	private void adjacentes() {
+		cidade("Arad").adddAdjacentes(
+			cidade("Zerind"),
+			cidade("Sibiu"),
+			cidade("Timisoara")
+		);
+
+		cidade("Zerind").adddAdjacentes(
+			cidade("Arad"),
+			cidade("Oradea")
+		);
+
+		cidade("Oradea").adddAdjacentes(
+			cidade("Zerind"),
+			cidade("Sibiu")
+		);
+
+		cidade("Sibiu").adddAdjacentes(
+			cidade("Arad"),
+			cidade("Oradea"),
+			cidade("Fagaras"),
+			cidade("Rimnicu Vilcea")
+		);
+
+		cidade("Timisoara").adddAdjacentes(
+			cidade("Arad"),
+			cidade("Lugoj")
+		);
+
+		cidade("Lugoj").adddAdjacentes(
+			cidade("Timisoara"),
+			cidade("Mehadia")
+		);
+
+		cidade("Mehadia").adddAdjacentes(
+			cidade("Lugoj"),
+			cidade("Drobeta")
+		);
+
+		cidade("Drobeta").adddAdjacentes(
+			cidade("Mehadia"),
+			cidade("Craiova")
+		);
+
+		cidade("Craiova").adddAdjacentes(
+			cidade("Drobeta"),
+			cidade("Rimnicu Vilcea"),
+			cidade("Pitesti")
+		);
+
+		cidade("Rimnicu Vilcea").adddAdjacentes(
+			cidade("Sibiu"),
+			cidade("Craiova"),
+			cidade("Pitesti")
+		);
+
+		cidade("Fagaras").adddAdjacentes(
+			cidade("Sibiu"),
+			cidade("Bucareste")
+		);
+
+		cidade("Pitesti").adddAdjacentes(
+			cidade("Rimnicu Vilcea"),
+			cidade("Craiova"),
+			cidade("Bucareste")
+		);
+
+		cidade("Bucareste").adddAdjacentes(
+			cidade("Fagaras"),
+			cidade("Pitesti"),
+			cidade("Giurgiu"),
+			cidade("Urziceni")
+		);
+
+		cidade("Giurgiu").adddAdjacentes( cidade("Bucareste") );
+
+		cidade("Urziceni").adddAdjacentes(
+			cidade("Bucareste"),
+			cidade("Hirsova"),
+			cidade("Vaslui")
+		);
+
+		cidade("Hirsova").adddAdjacentes(
+				cidade("Urziceni"),
+				cidade("Eforie")
+		);
+
+		cidade("Eforie").adddAdjacentes( cidade("Hirsova") );
+
+		cidade("Vaslui").adddAdjacentes(
+				cidade("Urziceni"),
+				cidade("Iasi")
+		);
+
+		cidade("Iasi").adddAdjacentes(
+			cidade("Vaslui"),
+			cidade("Neamt")
+		);
+
+		cidade("Neamt").adddAdjacentes( cidade("Iasi") );
+	}
+
+	Cidade cidade(String nome) {
+	    return map.get(nome);
 	}
 
 }
