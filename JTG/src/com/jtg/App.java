@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -53,13 +54,26 @@ public final class App extends Application {
 
 	ComboBox<String> combo;
 
-	@Override
-	public void start(Stage stage) throws Exception {
-		Document doc = new Document( Screen.class, (p) -> { return new Scene(p, 770, 400 ); } );
+	public void start2(Stage stage) throws Exception { // teste
+		Document doc = new Document( Screen.class, (p) -> { return new Scene(p, 850, 500 ); } );
 
 		stage.setTitle( "App - Trabalho");
 
 		stage.setScene( doc.getScene() );
+		
+		stage.show();
+	}
+	
+	int count = 0;
+	
+	public void start(Stage stage) throws Exception {
+		Document doc = new Document( Screen.class, p -> { return new Scene( p, 850, 500 ); });
+
+		stage.setTitle( "App - Trabalho");
+
+		stage.setScene( doc.getScene() );
+
+		doc.setPersists( "search_view" );
 
 		ObservableList<String> ob = FXCollections.observableArrayList();
 
@@ -69,14 +83,14 @@ public final class App extends Application {
 
 		Set<String> ligadas = new HashSet<>();
 
-		Pane pane = doc.getNodeById("pane");
+		Pane viewport = doc.getNodeById("viewport");
 
 		of.setOnMouseClicked( e -> combo = of );
 
 		to.setOnMouseClicked( e -> combo = to );
 
 		combo = of;
-
+		
 		for (Cidade cidade : cidades) {
 		    map.put(cidade.name, cidade);
 		}
@@ -84,7 +98,7 @@ public final class App extends Application {
 		adjacentes();
 
 		int ofsetX = 65;
-		int ofsetY = 100;
+		int ofsetY = 150;
 
 	    for ( Cidade cidade : cidades ) {
 
@@ -99,7 +113,7 @@ public final class App extends Application {
 	            else {
 	            	Line line = new Line( cidade.x - ofsetX, cidade.y + ofsetY, a.x  - ofsetX, a.y + ofsetY );
 
-		            pane.getChildren().add(line);
+	            	viewport.getChildren().add(line);
 
 		            ligadas.add(key1);
 	            }
@@ -116,9 +130,9 @@ public final class App extends Application {
 
 			l.setLayoutY( (cidade.y + ofsetY) + 5);
 
-			pane.getChildren().add( l );
+			viewport.getChildren().add( l );
 
-			pane.getChildren().add( c );
+			viewport.getChildren().add( c );
 
 			c.setOnMouseClicked(e -> combo.setValue( cidade.name ) );
 
@@ -130,8 +144,22 @@ public final class App extends Application {
 		to.getItems().addAll( ob );
 
 		of.setValue( ob.get(0) );
-		to.setValue( ob.get(0) );
+		to.setValue( ob.get(12) );
+
+		Button start = doc.getNodeById( "btn-start" );
 		
+		start.setOnAction( e -> doc.swap( "result_view" ) );
+			
+		doc.on(Document.SWAP, "result_view", () -> {
+
+			Button btn = doc.getNodeById( "btn-action" );
+
+			btn.setOnAction( e -> doc.swap( "search_view" ) );
+
+		});
+
+		stage.setResizable( false );
+
 		stage.show();
 	}
 	
