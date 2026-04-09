@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public final class App extends Application {
 
-	public static void main(String[] args) { launch(args); }
+	//public static void main(String[] args) { launch(args); }
 
 	static final int MAP_A = 0;
 	static final int MAP_B = 1;
