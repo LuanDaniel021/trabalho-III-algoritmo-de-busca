@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -17,29 +18,48 @@ import javafx.scene.layout.VBox;
 public class SearchView extends BorderPane {
 
 	@ID("viewport")
-    @Styles(
-        background_color = "#ffffff",
-        border_color = "#dcdcdc",
-        border_radius = "8",
-        alignment = "center"
-    )
-    @Styles(
-		target = "Circle",
-		fill = "#3498db",
-		stroke = "#2980b9"
-	)
-    @Styles(
-		target = "Line",
-		stroke = "#bdc3c7",
-		stroke_width = "2"
-	)
-    @Styles(
-		target = "Circle:hover",
-		cursor = "hand",
-		fill = "#e74c3c"
-	)
-    @Layout( region = "center" )
-    Pane viewport = new Pane();
+	@Layout( region = "center" )
+	BorderPane viewport = new BorderPane() {
+		
+		@Layout( region = "top" )
+		HBox header = new HBox() {
+			
+			@ID( "btn-switch-Arad/Bucareste" )
+			Button btn_switch_A = new Button("Arad - Bucareste");
+			
+			@ID( "btn-switch-User/Curitiba" )
+			Button btn_switch_B = new Button("____ -  Curitiba");
+		};
+
+		@ID("view-content")
+		@Styles(
+	        background_color = "#ffffff",
+	        border_color = "#dcdcdc",
+	        border_radius = "8",
+	        alignment = "center"
+	    )
+	    @Styles(
+			target = "Circle",
+			fill = "#3498db",
+			stroke = "#2980b9"
+		)
+	    @Styles(
+			target = "Line",
+			stroke = "#bdc3c7",
+			stroke_width = "2"
+		)
+	    @Styles(
+			target = "Circle:hover",
+			cursor = "hand",
+			fill = "#e74c3c"
+		)
+		@Styles(
+			target = "Label",
+			font_weight = "bold"
+		)
+		@Layout( region = "center" )
+	    Pane viewcontent = new Pane();
+	};
 
     @ID( "sidebar" )
     @Styles(
@@ -100,7 +120,7 @@ public class SearchView extends BorderPane {
         @Layout( region = "bottom" )
         VBox actions = new VBox() {
             
-        	@ID( "btn-start" )
+        	@ID( "btn-action" )
         	@Styles(
                 background_color = "#2ecc71",
                 text_fill = "white",
@@ -112,10 +132,10 @@ public class SearchView extends BorderPane {
         		state = "hover",
         		background_color = "#27ae60"
             )
-            Button btnStart = new Button("INICIAR BUSCA");
+            Button btnAction = new Button("INICIAR BUSCA");
 
             {
-                btnStart.setMaxWidth(Double.MAX_VALUE);
+            	btnAction.setMaxWidth(Double.MAX_VALUE);
             }
         };
 
