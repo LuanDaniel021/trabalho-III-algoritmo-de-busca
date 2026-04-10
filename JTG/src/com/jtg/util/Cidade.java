@@ -1,28 +1,18 @@
 package com.jtg.util;
 
+import com.jtg.algorithm.Vertice;
+
 public class Cidade {
 
-	public Cidade[] adjacentes;
+	public Vertice vertice;
 	public String name;
 	public int x, y;
 
-	public Cidade( String name, int x, int y ) {
-		this.adjacentes = new Cidade[0];
-		this.name = name;
+	public Cidade( Vertice vertice, int x, int y ) {
+		this.vertice = vertice;
+		this.name = vertice.rotulo;
 		this.x = x;
 		this.y = y;
-	}
-
-	public Cidade[] getAdjacentes() {
-		return adjacentes;
-	}
-
-	public void setAdjacentes(Cidade[] adjacentes) {
-		this.adjacentes = adjacentes;
-	}
-
-	public void adddAdjacentes(Cidade... adjacentes) {
-		this.adjacentes = adjacentes;
 	}
 
 	public String getName() {

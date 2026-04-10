@@ -9,24 +9,20 @@ public class Content {
 	
 	private final Cidade[] cidades;
 	
-	private final Linker linker;
+	public Map<String, Cidade> map = new HashMap<>();
 
-	public Content(int ofsetX, int ofsetY, Cidade[] cidades, Linker linker) {
+	public Content(int ofsetX, int ofsetY, Cidade[] cidades) {
 		this.cidades = cidades;
-		this.linker = linker;
 		this.ofsetX = ofsetX;
 		this.ofsetY = ofsetY;
 	}
 
 	public Content pack() {
-		Map<String, Cidade> map = new HashMap<>();
-		
+
 		for (Cidade cidade : cidades) {
 		    map.put(cidade.name, cidade);
 		}
 
-		linker.link(map);
-		
 		return this; 
 	}
 
@@ -40,11 +36,6 @@ public class Content {
 
 	public int getOfsetY() {
 		return ofsetY;
-	}
-
-	@FunctionalInterface
-	interface Linker {
-		void link( Map<String, Cidade> map );
 	}
 
 }

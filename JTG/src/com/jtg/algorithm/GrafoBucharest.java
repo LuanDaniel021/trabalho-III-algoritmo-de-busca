@@ -11,11 +11,17 @@ public class GrafoBucharest {
 	public Vertice mehadia   = new Vertice("Mehadia",   241);
 	public Vertice dobreta   = new Vertice("Dobreta",   242);
 	public Vertice craiova   = new Vertice("Craiova",   160);
-	public Vertice rimnicu   = new Vertice("Rimnicu",   193);
+	public Vertice rimnicu   = new Vertice("Rimnicu Vilcea",   193);
 	public Vertice fagaras   = new Vertice("Fagaras",   178);
 	public Vertice pitesti   = new Vertice("Pitesti",    98);
 	public Vertice bucharest = new Vertice("Bucharest",   0);
 	public Vertice giurgiu   = new Vertice("Giurgiu",    77);
+	public Vertice urziceni  = new Vertice("Urziceni",   80);
+	public Vertice hirsova   = new Vertice("Hirsova",   151);
+	public Vertice eforie    = new Vertice("Eforie",    161);
+	public Vertice vaslui    = new Vertice("Vaslui",    199);
+	public Vertice iasi      = new Vertice("Iasi",      226);
+	public Vertice neamt     = new Vertice("Neamt",     234);
 
 	{
 		/**
@@ -47,10 +53,10 @@ public class GrafoBucharest {
 		 * Sibiu
 		 */
 		sibiu.adiciona_adjacentes(
-				new Adjacente(oradea, 151),
-				new Adjacente(arad, 140),
-				new Adjacente(fagaras, 99),
-				new Adjacente(rimnicu, 80)
+			new Adjacente(oradea, 151),
+			new Adjacente(arad,   140),
+			new Adjacente(fagaras, 99),
+			new Adjacente(rimnicu, 80)
 		);
 
 		/**
@@ -126,7 +132,8 @@ public class GrafoBucharest {
 		bucharest.adiciona_adjacentes(
 			new Adjacente(fagaras, 211),
 			new Adjacente(pitesti, 101),
-			new Adjacente(giurgiu, 90)
+			new Adjacente(urziceni, 85),
+			new Adjacente(giurgiu,  90)
 		);
 		
 		/**
@@ -134,6 +141,53 @@ public class GrafoBucharest {
 		 */
 		giurgiu.adiciona_adjacentes(
 			new Adjacente(bucharest, 90)
+		);
+		
+		/**
+		 * Urziceni
+		 */
+		urziceni.adiciona_adjacentes(
+			new Adjacente(bucharest, 85),
+			new Adjacente(hirsova,   98),
+			new Adjacente(vaslui,    85)
+		);
+		
+		/**
+		 * hirsova
+		 */
+		hirsova.adiciona_adjacentes(
+			new Adjacente(urziceni, 98),
+			new Adjacente(eforie,   86)
+		);
+
+		/**
+		 * eforie
+		 */
+		eforie.adiciona_adjacentes(
+			new Adjacente(hirsova, 86)
+		);
+		
+		/**
+		 * vaslui
+		 */
+		vaslui.adiciona_adjacentes(
+			new Adjacente(urziceni, 142),
+			new Adjacente(iasi,      92)
+		);
+		
+		/**
+		 * iasi
+		 */
+		iasi.adiciona_adjacentes(
+			new Adjacente(neamt,  87),
+			new Adjacente(vaslui,  92)
+		);
+		
+		/**
+		 * neamt
+		 */
+		neamt.adiciona_adjacentes(
+			new Adjacente(iasi,  87)
 		);
 	}
 }

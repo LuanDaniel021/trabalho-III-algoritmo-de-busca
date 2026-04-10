@@ -1,9 +1,12 @@
 package com.jtg;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.jdm.Document;
+import com.jtg.algorithm.AEstrela;
+import com.jtg.algorithm.Adjacente;
 import com.jtg.ui.Screen;
 import com.jtg.util.Cidade;
 import com.jtg.util.Content;
@@ -21,22 +24,20 @@ import javafx.stage.Stage;
 
 public final class App extends Application {
 
-	//public static void main(String[] args) { launch(args); }
+	public static void main(String[] args) { launch(args); }
 
-	static final int MAP_A = 0;
-	static final int MAP_B = 1;
+	static final int BUCHAREST = 0;
+	static final int CURITIBA  = 1;
 
-	String[] start = { "Arad", "Porto União" };
-
-	String map;
-	
-	String of = start[ 0 ];
+	String[] of = { "Arad", "Porto União" };
 
 	String to = "Bucareste";
-	
+
 	ComboBox<String> of_ComboBox;
 	ComboBox<String> to_ComboBox;
 	Pane viewcontent;
+
+	public Map<String, Cidade> map;
 
 	public void start(Stage stage) throws Exception {
 		Document doc = new Document( Screen.class );
@@ -50,28 +51,36 @@ public final class App extends Application {
 		of_ComboBox = doc.getNodeById("of-destination");
 		to_ComboBox = doc.getNodeById("to-destination");
 		viewcontent = doc.getNodeById( "view-content" );
-		
+
 		Button btn_switch_A = doc.getNodeById( "btn-switch-Arad/Bucareste" );
 		btn_switch_A.setOnAction( e -> {
-			if ( !to.equals( "Bucareste" ) ) {
-				of = start[ 0 ];
-				to = "Bucareste";
-				update( doc );	
-			}
+			of[ 1 ] = of_ComboBox.getValue();
+			to = "Bucareste";
+			update( doc );
 		});
-		
+
 		Button btn_switch_B = doc.getNodeById( "btn-switch-User/Curitiba" );
 		btn_switch_B.setOnAction( e -> {
-			if ( !to.equals( "Curitiba" ) ) {
-				of = start[ 1 ];
+				of[ 0 ] = of_ComboBox.getValue();
 				to = "Curitiba";
 				update( doc );
-			}
 		});
 
 		Button btn_action = doc.getNodeById( "btn-action" );
+		btn_action.setOnAction( e -> {
 
-		btn_action.setOnAction( e -> doc.swap( "result_view") );
+			if ( to.equals( "Curitiba" ) ) {
+				AEstrela aestrela = new AEstrela( map.get( "Curitiba" ).vertice );
+
+				aestrela.buscar( map.get( of_ComboBox.getValue() ).vertice );
+			} else {
+				AEstrela aestrela = new AEstrela( map.get( "Bucharest" ).vertice );
+
+				aestrela.buscar( map.get( of_ComboBox.getValue() ).vertice );
+			}
+
+			doc.swap( "result_view" );
+		});
 
 		doc.on(Document.SWAP, "result_view", () -> {
 			Button btn = doc.getNodeById( "btn-action" );
@@ -89,10 +98,12 @@ public final class App extends Application {
 
 		stage.show();
 	}
-	
+
 	private void update(Document doc) {
 
 		Content content = Mapas.get( to ).pack();
+
+		map = content.map;
 
 		Cidade[] cidades = content.getCidades();
 
@@ -109,16 +120,22 @@ public final class App extends Application {
 
 	    for ( Cidade cidade : cidades ) {
 
-	        for ( Cidade a : cidade.adjacentes ) {
+	        for ( Adjacente a : cidade.vertice.adjacentes ) {
 
-	            String key1 = cidade.name + "-" + a.name;
+	            String key1 = cidade.name + "-" + a.vertice.rotulo;
 
-	            String key2 = a.name + "-" + cidade.name;
+	            String key2 = a.vertice.rotulo + "-" + cidade.name;
 
 	            if ( ligadas.contains(key1) || ligadas.contains(key2) ) continue;
-
 	            else {
-	            	Line line = new Line( cidade.x + ofsetX, cidade.y + ofsetY, a.x  + ofsetX, a.y + ofsetY );
+	            	Cidade cidadeA = map.get( a.vertice.rotulo );
+
+	            	Line line = new Line(
+	            		cidade.x + ofsetX,
+	            		cidade.y + ofsetY,
+	            		cidadeA.x  + ofsetX,
+	            		cidadeA.y + ofsetY
+	            	);
 
 	            	viewcontent.getChildren().add(line);
 
@@ -130,7 +147,7 @@ public final class App extends Application {
 	        Circle c = new Circle( cidade.x + ofsetX, cidade.y + ofsetY, 4 );
 
 			Label l = new Label( cidade.name );
-			
+
 			ob.add( cidade.name );
 
 			l.setLayoutX( (cidade.x + ofsetX));
@@ -146,18 +163,19 @@ public final class App extends Application {
 			l.setOnMouseClicked(e -> of_ComboBox.setValue( cidade.name ) );
 
 	    }
-	    
+
 	    ObservableList<String> ob_to = to_ComboBox.getItems();
 
 	    ob_to.clear();
-	    
+
 	    ob_to.add( to );
 
-		of_ComboBox.setValue( of );
-		to_ComboBox.setValue( to );
-		
+	    to_ComboBox.setValue( to );
+
+		of_ComboBox.setValue( of[ to.equals( "Curitiba" ) ? CURITIBA : BUCHAREST ] );
+
 		of_ComboBox.requestFocus();
-		
+
 	}
 
 }
