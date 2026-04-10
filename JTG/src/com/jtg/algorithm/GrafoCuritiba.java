@@ -2,26 +2,26 @@ package com.jtg.algorithm;
 
 public class GrafoCuritiba {
 
-	public Vertice porto_uniao    = new Vertice("Porto União",         203);
+	public Vertice porto_uniao    = new Vertice("Porto UniÃ£o",         203);
 	public Vertice paulo_frontin  = new Vertice("Paulo Frontin",       172);
 	public Vertice irati          = new Vertice("Irati",               139);
-	public Vertice sao_mateus     = new Vertice("São Mateus do Sul",   123);
-	public Vertice tres_barras    = new Vertice("Três Barras",         131);
+	public Vertice sao_mateus     = new Vertice("SÃ£o Mateus do Sul",   123);
+	public Vertice tres_barras    = new Vertice("TrÃªs Barras",         131);
 	public Vertice canoinhas      = new Vertice("Canoinhas",           141);
 	public Vertice mafra          = new Vertice("Mafra",                94);
 	public Vertice lapa           = new Vertice("Lapa",                 74);
 	public Vertice contenda       = new Vertice("Contenda",             39);
 	public Vertice balsa_nova     = new Vertice("Balsa Nova",           41);
-	public Vertice araucaria      = new Vertice("Araucária",            23);
+	public Vertice araucaria      = new Vertice("AraucÃ¡ria",            23);
 	public Vertice tijucas_do_sul = new Vertice("Tijucas do Sul",       56);
 	public Vertice palmeira       = new Vertice("Palmeira",             59);
-	public Vertice sao_jose       = new Vertice("São José dos Pinhais", 13);
+	public Vertice sao_jose       = new Vertice("SÃ£o JosÃ© dos Pinhais", 13);
 	public Vertice campo_largo    = new Vertice("Campo Largo",          27);
 	public Vertice curitiba       = new Vertice("Curitiba",              0);
 
 	{
 		/**
-		 * Porto União
+		 * Porto UniÃ£o
 		 * */
 		porto_uniao.adiciona_adjacentes(
 			new Adjacente(paulo_frontin, 46),
@@ -47,7 +47,7 @@ public class GrafoCuritiba {
 		);
 		
 		/**
-		 * São Mateus do Sul
+		 * SÃ£o Mateus do Sul
 		 * */
 		sao_mateus.adiciona_adjacentes(
 			new Adjacente(porto_uniao, 87),
@@ -58,7 +58,7 @@ public class GrafoCuritiba {
 		);
 		
 		/**
-		 * Três Barras
+		 * TrÃªs Barras
 		 * */
 		tres_barras.adiciona_adjacentes(
 			new Adjacente(canoinhas, 12),
@@ -111,7 +111,7 @@ public class GrafoCuritiba {
 		);
 		
 		/**
-		 * Araucária
+		 * AraucÃ¡ria
 		 */
 		araucaria.adiciona_adjacentes(
 			new Adjacente(contenda, 18),
@@ -136,7 +136,7 @@ public class GrafoCuritiba {
 		);
 		
 		/**
-		 * São José dos Pinhais
+		 * SÃ£o JosÃ© dos Pinhais
 		 */
 		sao_jose.adiciona_adjacentes(
 			new Adjacente(tijucas_do_sul, 49),

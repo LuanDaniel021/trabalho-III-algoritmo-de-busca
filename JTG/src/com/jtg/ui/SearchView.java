@@ -79,7 +79,7 @@ public class SearchView extends BorderPane {
         	text_fill = "#2c3e50"
         )
         @Layout( region = "top" )
-        Label title = new Label("Configuração de Busca");
+        Label title = new Label("ConfiguraÃ§Ã£o de Busca");
 
         @ID( "settings-grid" )
         @Styles( spacing = "20" )

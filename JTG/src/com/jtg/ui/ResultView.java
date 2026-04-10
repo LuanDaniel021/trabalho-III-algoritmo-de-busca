@@ -30,7 +30,7 @@ public class ResultView extends BorderPane {
         	font_weight = "bold",
         	text_fill = "#27ae60"
         )
-        Label lblStatus = new Label("Busca Concluída!");
+        Label lblStatus = new Label("Busca ConcluÃ­da!");
 
         @ID("data-grid")
         @Styles(
@@ -46,7 +46,7 @@ public class ResultView extends BorderPane {
         )
         VBox stats = new VBox() {
 			Label l1 = new Label("Caminho Total: 152.4 units");
-            Label l2 = new Label("Nós Explorados: 42");
+            Label l2 = new Label("NÃ³s Explorados: 42");
             Label l3 = new Label("Tempo Decorrido: 124ms");
         };
 

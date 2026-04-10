@@ -29,7 +29,7 @@ public final class App extends Application {
 	static final int BUCHAREST = 0;
 	static final int CURITIBA  = 1;
 
-	String[] of = { "Arad", "Porto Uni„o" };
+	String[] of = { "Arad", "Porto Uni√£o" };
 
 	String to = "Bucareste";
 
