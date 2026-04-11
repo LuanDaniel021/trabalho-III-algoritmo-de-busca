@@ -1,0 +1,40 @@
+
+#result-container {
+    -fx-padding:20;
+    -fx-alignment:center;
+    -fx-border-radius:10;
+    -fx-border-color:#2ecc71;
+    -fx-background-color:#ffffff;
+    -fx-spacing:15;
+}
+#Label-1 {
+    -fx-font-weight:bold;
+    -fx-text-fill:#27ae60;
+    -fx-font-size:22;
+}
+#data-grid {
+    -fx-padding:10;
+    -fx-border-radius:5;
+    -fx-background-color:#f4fbf7;
+    -fx-spacing:10;
+}
+#data-grid Label {
+    -fx-font-size:14;
+    -fx-font-family:Monospaced;
+}
+#VBox-2 {
+    -fx-padding:10;
+    -fx-spacing:10;
+}
+#VBox-4 {
+    -fx-padding:10;
+    -fx-spacing:10;
+}
+#btn-action {
+    -fx-cursor:hand;
+    -fx-background-color:#34495e;
+    -fx-text-fill:white;
+}
+#btn-action:hover {
+    -fx-background-color:#2c3e50;
+}

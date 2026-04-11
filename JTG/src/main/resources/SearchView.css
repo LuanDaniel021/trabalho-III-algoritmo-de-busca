@@ -1,0 +1,76 @@
+
+#HBox-1 {
+    -fx-border-width:0 0 1 0;
+    -fx-padding:0 0 1 0;
+    -fx-border-color:#ddd;
+    -fx-background-color:#f4f4f4;
+    -fx-spacing:5;
+}
+#HBox-1 Button {
+    -fx-cursor:hand;
+    -fx-border-width:0 0 2 0;
+    -fx-font-weight:bold;
+    -fx-padding:10 20;
+    -fx-border-color:#34495e;
+    -fx-background-color:transparent;
+    -fx-text-fill:#34495e;
+}
+#HBox-1:hover Button:hover {
+    -fx-border-color:#3498db;
+    -fx-background-color:#e1f5fe;
+    -fx-text-fill:#3498db;
+}
+#view-content {
+    -fx-alignment:center;
+    -fx-border-radius:8;
+    -fx-border-color:#dcdcdc;
+    -fx-background-color:#ffffff;
+}
+#view-content Circle {
+    -fx-fill:#3498db;
+    -fx-stroke:#2980b9;
+}
+#view-content Line {
+    -fx-stroke-width:2;
+    -fx-stroke:#bdc3c7;
+}
+#view-content Circle:hover {
+    -fx-fill:#e74c3c;
+    -fx-cursor:hand;
+}
+#view-content Label, CheckBox {
+    -fx-font-weight:bold;
+}
+#sidebar {
+    -fx-padding:20;
+    -fx-border-radius:8;
+    -fx-border-color:#bdc3c7;
+    -fx-background-color:#f9f9f9;
+    -fx-min-width:250;
+}
+#header {
+    -fx-font-weight:bold;
+    -fx-text-fill:#2c3e50;
+    -fx-font-size:20;
+}
+#settings-grid {
+    -fx-spacing:20;
+}
+#settings-grid Label, CheckBox {
+    -fx-font-weight:bold;
+    -fx-text-fill:#7f8c8d;
+    -fx-font-size:12;
+}
+#settings-grid ComboBox {
+    -fx-pref-width:200;
+}
+#btn-action {
+    -fx-cursor:hand;
+    -fx-font-weight:bold;
+    -fx-padding:10 20;
+    -fx-background-color:#2ecc71;
+    -fx-text-fill:white;
+}
+#btn-action:hover {
+    -fx-background-color:#27ae60;
+}

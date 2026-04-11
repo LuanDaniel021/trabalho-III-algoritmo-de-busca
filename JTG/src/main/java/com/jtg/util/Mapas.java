@@ -69,7 +69,7 @@ public class Mapas {
 
 	public static Content get(String to) {
 		switch ( to ) {
-			case "Bucareste": {
+			case "Bucharest": {
 				return new Content(
 					ofSetX_Bucareste,
 					ofSetY_Bucareste,
