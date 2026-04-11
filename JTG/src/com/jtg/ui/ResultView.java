@@ -4,6 +4,7 @@ import com.jdm.meta.ID;
 import com.jdm.meta.Layout;
 import com.jdm.meta.Styles;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +17,7 @@ import javafx.scene.layout.VBox;
 @SuppressWarnings("unused")
 public class ResultView extends BorderPane {
 
-    @ID("result-container")
+	@ID("result-container")
     @Styles(
         background_color = "#ffffff",
         border_color = "#2ecc71",
@@ -46,13 +47,14 @@ public class ResultView extends BorderPane {
         	font_size = "14",
         	font_family = "Monospaced"
         )
-        
         HBox data_grid = new HBox() {
-        	@Styles(
-            	hgrow = "ALWAYS"
-            )
-        	VBox content_algoA = new VBox() {
-        		
+
+        	VBox content_algoA = new VBox( 5 ) {
+
+        		@Styles(
+                    spacing = "10",
+                    padding = "10"
+                )
         		VBox header = new VBox() {
 	        		Label name = new Label("GULOSO");
 	        		Label l1 = new Label("Caminho Total: 152.4 units");
@@ -61,17 +63,27 @@ public class ResultView extends BorderPane {
         		};
 
         		@Styles( pref_height = "150" )
-                ListView<String> pathDetails = new ListView<String>() {{
-                    getItems().addAll("Origem: A", "Passagem: B", "Passagem: F", "Destino: G");
-                }};
+                ListView<String> pathDetails = new ListView<String>(
+            		FXCollections.observableArrayList(
+            			"Origem: A",
+            			"Passagem: B",
+            			"Passagem: F",
+            			"Destino: G",
+            			"Origem: A",
+            			"Passagem: B",
+            			"Passagem: F",
+            			"Destino: G"
+            		)
+                );
 
             };
 
-            @Styles(
-            	hgrow = "ALWAYS"
-            )
             VBox content_algoB = new VBox() {
-            	
+
+            	@Styles(
+                    spacing = "10",
+                    padding = "10"
+                )
             	VBox header = new VBox() {
 	        		Label name = new Label("AESTRELA");
 	        		Label l1 = new Label("Caminho Total: 152.4 units");
@@ -79,16 +91,21 @@ public class ResultView extends BorderPane {
 	        		Label l3 = new Label("Tempo Decorrido: 124ms");
         		};
 
-                @Styles( pref_height = "150" )
-                ListView<String> pathDetails = new ListView<String>() {{
-                    getItems().addAll("Origem: A", "Passagem: B", "Passagem: F", "Destino: G");
-                }};
+        		@Styles( pref_height = "150" )
+                ListView<String> pathDetails = new ListView<String>(
+            		FXCollections.observableArrayList(
+            			"Origem: A",
+            			"Passagem: B",
+            			"Passagem: F",
+            			"Destino: G"
+            		)
+                );
 
             };
-            
+
             {
-            	//setHgrow(content_algoA, Priority.ALWAYS);
-            	//setHgrow(content_algoB, Priority.ALWAYS);
+            	setHgrow(content_algoA, Priority.ALWAYS);
+            	setHgrow(content_algoB, Priority.ALWAYS);
             }
         };
 
@@ -109,4 +126,5 @@ public class ResultView extends BorderPane {
             btnBack.setMaxWidth(Double.MAX_VALUE);
         }
     };
+
 }

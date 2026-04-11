@@ -48,7 +48,7 @@ public class AEstrela {
 		}
 
 		public void insere( Adjacente adjacente ) {
-			if (ultima_posicao == capacidade - 1) System.out.println("Capacidade máxima atingida");
+			if (ultima_posicao == capacidade - 1) System.out.println("Capacidade mï¿½xima atingida");
 			else {
 				int posicao = 0;
 			    for ( int i = 0; i < ultima_posicao + 1; i++) {
@@ -75,7 +75,7 @@ public class AEstrela {
 		}
 		
 		public void imprime() {
-			if (ultima_posicao == -1) System.out.println( "O vetor está vazio" );
+			if (ultima_posicao == -1) System.out.println( "O vetor estï¿½ vazio" );
 			else {
 				for ( int i = 0; i < ultima_posicao + 1; i++) {
 					System.out.print( i );

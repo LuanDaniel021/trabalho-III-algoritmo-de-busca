@@ -13,7 +13,7 @@ public class Adjacente {
 		this.custo = custo;
 	}
 	
-	public double getDistancia() {
+	public double distancia() {
 		return distancia;
 	}
 	

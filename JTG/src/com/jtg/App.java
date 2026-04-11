@@ -7,7 +7,8 @@ import java.util.Set;
 import com.jdm.Document;
 import com.jtg.algorithm.AEstrela;
 import com.jtg.algorithm.Adjacente;
-import com.jtg.ui.Screen;
+import com.jtg.ui.ResultView;
+import com.jtg.ui.SearchView;
 import com.jtg.util.Cidade;
 import com.jtg.util.Content;
 import com.jtg.util.Mapas;
@@ -26,6 +27,14 @@ public final class App extends Application {
 
 	public static void main(String[] args) { launch(args); }
 
+	static class Screen {
+
+		SearchView search_view;
+
+		ResultView result_view;
+
+	}
+
 	static final int BUCHAREST = 0;
 	static final int CURITIBA  = 1;
 
@@ -37,22 +46,9 @@ public final class App extends Application {
 	ComboBox<String> to_ComboBox;
 	Pane viewcontent;
 
-	public Map<String, Cidade> map;
-
+	Map<String, Cidade> map;
 
 	public void start(Stage stage) throws Exception {
-		Document doc = new Document( Screen.class );
-
-		stage.setTitle( "App - Trabalho");
-
-		stage.setScene( doc.getScene() );
-
-		stage.setWidth( 900 );
-
-		stage.show();
-	}
-		
-	public void start1(Stage stage) throws Exception {
 		Document doc = new Document( Screen.class );
 
 		stage.setTitle( "App - Trabalho");

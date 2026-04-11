@@ -7,6 +7,7 @@ import com.jdm.meta.Styles;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -54,7 +55,7 @@ public class SearchView extends BorderPane {
 			fill = "#e74c3c"
 		)
 		@Styles(
-			target = "Label",
+			target = "Label, CheckBox",
 			font_weight = "bold"
 		)
 		@Layout( region = "center" )
@@ -84,7 +85,7 @@ public class SearchView extends BorderPane {
         @ID( "settings-grid" )
         @Styles( spacing = "20" )
         @Styles(
-        	target = "Label",
+        	target = "Label, CheckBox",
         	font_size = "12",
         	text_fill = "#7f8c8d",
         	font_weight = "bold"
@@ -113,6 +114,10 @@ public class SearchView extends BorderPane {
         		ComboBox<String> box;
 
         	};
+        	
+        	CheckBox pedagio = new CheckBox( "Evitar pedagios ");
+        		
+        	CheckBox turitico = new CheckBox( "Priorizar pontos turisticos" );
 
         };
 
@@ -149,5 +154,4 @@ public class SearchView extends BorderPane {
         setMargin(viewport, new Insets(15));
         setMargin(sidebar, new Insets(15, 15, 15, 0));
     }
-
 }
