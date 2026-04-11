@@ -1,11 +1,16 @@
 package com.jtg.algorithm;
 
-public class Vertice {
-	
+public class Vertice implements Distancia {
+
+	public static boolean PEDAGIO, TURISMO;
+
 	public String rotulo;
-	boolean visitado;
+	public boolean visitado;
 	public double distancia;
 	public Adjacente[] adjacentes;
+
+	public Heuristica pedagio;
+	public Heuristica turismo;
 
 	public Vertice( String rotulo, double distancia ) {
 		this.rotulo = rotulo;
@@ -24,8 +29,19 @@ public class Vertice {
 		}
 	}
 	
-	public double getDistancia() {
-		return distancia;
+	@Override
+	public double distancia() {
+		double value = 0;
+
+		if ( PEDAGIO && pedagio != null ) {
+			value += pedagio.value( this );
+		}
+
+		if ( TURISMO && turismo != null ) {
+			value += turismo.value( this );
+		}
+
+		return distancia + value;
 	}
 
 }

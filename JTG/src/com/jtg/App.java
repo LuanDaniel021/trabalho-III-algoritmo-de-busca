@@ -1,12 +1,14 @@
 package com.jtg;
 
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 import com.jdm.Document;
 import com.jtg.algorithm.AEstrela;
 import com.jtg.algorithm.Adjacente;
+import com.jtg.algorithm.BuscaGulosa;
+import com.jtg.algorithm.Vertice;
 import com.jtg.ui.ResultView;
 import com.jtg.ui.SearchView;
 import com.jtg.util.Cidade;
@@ -16,8 +18,10 @@ import com.jtg.util.Mapas;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -38,39 +42,49 @@ public final class App extends Application {
 	static final int BUCHAREST = 0;
 	static final int CURITIBA  = 1;
 
-	String[] of = { "Arad", "Porto Uni√£o" };
+	String[] of = { "Arad", "Porto Uni„o" };
 
 	String to = "Bucareste";
 
+	String target;
+
 	ComboBox<String> of_ComboBox;
 	ComboBox<String> to_ComboBox;
+	CheckBox pedagio;
+	CheckBox turismo;
 	Pane viewcontent;
 
-	Map<String, Cidade> map;
+	Content content;
+	
+	List<Vertice> caminhoA;
+	List<Adjacente> caminhoB;
 
 	public void start(Stage stage) throws Exception {
 		Document doc = new Document( Screen.class );
 
-		stage.setTitle( "App - Trabalho");
+		stage.setTitle( "App - Trabalho" );
 
 		stage.setScene( doc.getScene() );
 
 		doc.setPersists( "search_view" );
 
+		pedagio = doc.getNodeById( "pedagio-check-box" );
+		turismo = doc.getNodeById( "turismo-check-box" );
 		of_ComboBox = doc.getNodeById("of-destination");
 		to_ComboBox = doc.getNodeById("to-destination");
+
 		viewcontent = doc.getNodeById( "view-content" );
 
-		Button btn_switch_A = doc.getNodeById( "btn-switch-Arad/Bucareste" );
+		Button btn_switch_A = doc.getNodeById( "tab-arad" );
 		btn_switch_A.setOnAction( e -> {
-			of[ 1 ] = of_ComboBox.getValue();
+			of[ CURITIBA ] = of_ComboBox.getValue();
 			to = "Bucareste";
 			update( doc );
 		});
 
-		Button btn_switch_B = doc.getNodeById( "btn-switch-User/Curitiba" );
+		Button btn_switch_B = doc.getNodeById( "tab-curitiba" );
 		btn_switch_B.setOnAction( e -> {
-				of[ 0 ] = of_ComboBox.getValue();
+				of[ BUCHAREST ] = of_ComboBox.getValue();
 				to = "Curitiba";
 				update( doc );
 		});
@@ -78,25 +92,52 @@ public final class App extends Application {
 		Button btn_action = doc.getNodeById( "btn-action" );
 		btn_action.setOnAction( e -> {
 
-			if ( to.equals( "Curitiba" ) ) {
-				AEstrela aestrela = new AEstrela( map.get( "Curitiba" ).vertice );
+			Adjacente.PEDAGIO = pedagio.isSelected();
+			Adjacente.TURISMO = turismo.isSelected();
 
-				aestrela.buscar( map.get( of_ComboBox.getValue() ).vertice );
-			} else {
-				AEstrela aestrela = new AEstrela( map.get( "Bucharest" ).vertice );
-
-				aestrela.buscar( map.get( of_ComboBox.getValue() ).vertice );
-			}
+			target =  to.equals( "Curitiba" ) ? "Curitiba" : "Bucharest";
+			
+			BuscaGulosa gulosa = new BuscaGulosa( content.get( target ).vertice );
+			gulosa.buscar( content.get( of_ComboBox.getValue() ).vertice );
+			caminhoA = gulosa.caminho;
+			
+			content.map.forEach( (k, value) -> value.vertice.visitado = false );
+			
+			AEstrela aestrela = new AEstrela( content.get( target ).vertice );
+			aestrela.buscar( content.get( of_ComboBox.getValue() ).vertice );
+			caminhoB = aestrela.caminho;
+			
+			content.map.forEach( (k, value) -> value.vertice.visitado = false );
 
 			doc.swap( "result_view" );
 		});
 
 		doc.on(Document.SWAP, "result_view", () -> {
+			
+			ListView<String> pathA = doc.getNodeById( "gulosa-path" );
+			ObservableList<String> obA = pathA.getItems();
+			caminhoA.remove( caminhoA.size() - 1 );
+			obA.add( String.format("Origem: %s", of_ComboBox.getValue()) );
+			for ( Vertice v : caminhoA ) {
+				obA.add( String.format("Passagem: %s", v.rotulo) );
+			}
+			obA.add( String.format("Destino: %s", to) );
+			
+			ListView<String> pathB = doc.getNodeById( "aestrela-path" );
+			ObservableList<String> obB = pathB.getItems();
+			caminhoB.remove( caminhoB.size() - 1 );
+			obB.add( String.format("Origem: %s", of_ComboBox.getValue()) );
+			for ( Adjacente a : caminhoB ) {
+				obB.add( String.format("Passagem: %s", a.getVertice().rotulo) );
+			}
+			obB.add( String.format("Destino: %s", to) );
+			
 			Button btn = doc.getNodeById( "btn-action" );
 			btn.setOnAction( e -> {
 				doc.swap( "search_view");
 				of_ComboBox.requestFocus();
 			});
+
 		});
 
 		stage.setWidth( 900 );
@@ -110,9 +151,7 @@ public final class App extends Application {
 
 	private void update(Document doc) {
 
-		Content content = Mapas.get( to ).pack();
-
-		map = content.map;
+		content = Mapas.get( to ).pack();
 
 		Cidade[] cidades = content.getCidades();
 
@@ -131,13 +170,13 @@ public final class App extends Application {
 
 	        for ( Adjacente a : cidade.vertice.adjacentes ) {
 
-	            String key1 = cidade.name + "-" + a.vertice.rotulo;
+	            String key1 = cidade.name + "-" + a.getVertice().rotulo;
 
-	            String key2 = a.vertice.rotulo + "-" + cidade.name;
+	            String key2 = a.getVertice().rotulo + "-" + cidade.name;
 
 	            if ( ligadas.contains(key1) || ligadas.contains(key2) ) continue;
 	            else {
-	            	Cidade cidadeA = map.get( a.vertice.rotulo );
+	            	Cidade cidadeA = content.get( a.getVertice().rotulo );
 
 	            	Line line = new Line(
 	            		cidade.x + ofsetX,

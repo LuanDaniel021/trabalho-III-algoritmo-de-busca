@@ -23,7 +23,11 @@ public class Content {
 		    map.put(cidade.name, cidade);
 		}
 
-		return this; 
+		return this;
+	}
+	
+	public Cidade get( String key ) {
+		return map.get(key);
 	}
 
 	public Cidade[] getCidades() {

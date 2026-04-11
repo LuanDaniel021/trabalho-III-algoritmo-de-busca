@@ -1,11 +1,16 @@
 package com.jtg.algorithm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AEstrela {
-	
+
 	Vertice objetivo;
 	boolean encontrado;
+	public List<Adjacente> caminho;
 
 	public AEstrela( Vertice objetivo ) {
+		this.caminho = new ArrayList<Adjacente>();
 		this.objetivo = objetivo;
 		this.encontrado = false;
 	}
@@ -19,19 +24,17 @@ public class AEstrela {
 	    	VetorOrdenado vetor_ordenado = new VetorOrdenado(atual.adjacentes.length);
 
 	    	for (Adjacente adjacente : atual.adjacentes) {
-
 	    		if ( adjacente.vertice.visitado == false ) {
 	    			vetor_ordenado.insere(adjacente);
 	    		}
-
 	    	}
 
 	    	vetor_ordenado.imprime();
 	    	
 	    	if ( vetor_ordenado.valores[0] != null ) {
+	    		caminho.add(vetor_ordenado.valores[0]);
     			buscar(vetor_ordenado.valores[0].vertice);
     		}
-	    	
 	    }
 	}
 	
@@ -53,8 +56,8 @@ public class AEstrela {
 				int posicao = 0;
 			    for ( int i = 0; i < ultima_posicao + 1; i++) {
 			    	posicao = i;
-			    	
-			    	if ( valores[i].getDistancia() > adjacente.distancia ) {
+
+			    	if ( valores[i].distancia() > adjacente.distancia() ) {
 			    		break;
 			    	}
 			      
@@ -75,7 +78,7 @@ public class AEstrela {
 		}
 		
 		public void imprime() {
-			if (ultima_posicao == -1) System.out.println( "O vetor estï¿½ vazio" );
+			if (ultima_posicao == -1) System.out.println( "O vetor está vazio" );
 			else {
 				for ( int i = 0; i < ultima_posicao + 1; i++) {
 					System.out.print( i );
@@ -84,9 +87,9 @@ public class AEstrela {
 					System.out.print( " - " );
 					System.out.print( valores[i].custo );
 					System.out.print( " - " );
-					System.out.print( valores[i].vertice.getDistancia() );
+					System.out.print( valores[i].vertice.distancia );
 					System.out.print( " - " );
-					System.out.println( valores[i].getDistancia() );
+					System.out.println( valores[i].distancia() );
 			    }
 			}
 		}

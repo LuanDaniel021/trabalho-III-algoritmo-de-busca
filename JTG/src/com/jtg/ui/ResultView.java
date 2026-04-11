@@ -16,24 +16,25 @@ import javafx.scene.layout.VBox;
 
 @SuppressWarnings("unused")
 public class ResultView extends BorderPane {
-
+	
 	@ID("result-container")
     @Styles(
         background_color = "#ffffff",
         border_color = "#2ecc71",
         border_radius = "10",
+        alignment = "center",
         padding = "20",
         spacing = "15"
     )
     @Layout(region = "center")
     VBox content = new VBox() {
 
-        @Styles(
-        	font_size = "22",
-        	font_weight = "bold",
-        	text_fill = "#27ae60"
-        )
-        Label lblStatus = new Label("Busca ConcluÃ­da!");
+		@Styles(
+	    	font_size = "22",
+	    	font_weight = "bold",
+	    	text_fill = "#27ae60"
+	    )
+	    Label title = new Label("Busca Concluída!");
 
         @ID("data-grid")
         @Styles(
@@ -49,7 +50,7 @@ public class ResultView extends BorderPane {
         )
         HBox data_grid = new HBox() {
 
-        	VBox content_algoA = new VBox( 5 ) {
+        	VBox content_algoA = new VBox() {
 
         		@Styles(
                     spacing = "10",
@@ -57,26 +58,15 @@ public class ResultView extends BorderPane {
                 )
         		VBox header = new VBox() {
 	        		Label name = new Label("GULOSO");
-	        		Label l1 = new Label("Caminho Total: 152.4 units");
-	        		Label l2 = new Label("NÃ³s Explorados: 42");
-	        		Label l3 = new Label("Tempo Decorrido: 124ms");
+	        		Label count = new Label("Nós Explorados: 42");
+	        		Label time = new Label("Tempo Decorrido: 124ms");
+	        		Label path = new Label("Caminho Total: 152.4 units");
         		};
 
-        		@Styles( pref_height = "150" )
-                ListView<String> pathDetails = new ListView<String>(
-            		FXCollections.observableArrayList(
-            			"Origem: A",
-            			"Passagem: B",
-            			"Passagem: F",
-            			"Destino: G",
-            			"Origem: A",
-            			"Passagem: B",
-            			"Passagem: F",
-            			"Destino: G"
-            		)
-                );
+        		@ID("gulosa-path")
+                ListView<String> pathDetails;
 
-            };
+        	};
 
             VBox content_algoB = new VBox() {
 
@@ -86,20 +76,13 @@ public class ResultView extends BorderPane {
                 )
             	VBox header = new VBox() {
 	        		Label name = new Label("AESTRELA");
-	        		Label l1 = new Label("Caminho Total: 152.4 units");
-	        		Label l2 = new Label("NÃ³s Explorados: 42");
-	        		Label l3 = new Label("Tempo Decorrido: 124ms");
+	        		Label count = new Label("Nós Explorados: 42");
+	        		Label time = new Label("Tempo Decorrido: 124ms");
+	        		Label path = new Label("Caminho Total: 152.4 units");
         		};
 
-        		@Styles( pref_height = "150" )
-                ListView<String> pathDetails = new ListView<String>(
-            		FXCollections.observableArrayList(
-            			"Origem: A",
-            			"Passagem: B",
-            			"Passagem: F",
-            			"Destino: G"
-            		)
-                );
+        		@ID("aestrela-path")
+                ListView<String> pathDetails;
 
             };
 
@@ -107,6 +90,7 @@ public class ResultView extends BorderPane {
             	setHgrow(content_algoA, Priority.ALWAYS);
             	setHgrow(content_algoB, Priority.ALWAYS);
             }
+
         };
 
         @ID("btn-action")
@@ -122,9 +106,9 @@ public class ResultView extends BorderPane {
         Button btnBack = new Button("Nova Busca");
 
         {
-            setAlignment(Pos.TOP_CENTER);
             btnBack.setMaxWidth(Double.MAX_VALUE);
         }
-    };
 
+    };
+   
 }

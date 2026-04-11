@@ -1,11 +1,16 @@
 package com.jtg.algorithm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BuscaGulosa {
-	
+
 	Vertice objetivo;
 	boolean encontrado;
+	public List<Vertice> caminho;
 	
 	public BuscaGulosa( Vertice objetivo ) {
+		this.caminho = new ArrayList<Vertice>();
 		this.objetivo = objetivo;
 		this.encontrado = false;
 	}
@@ -29,6 +34,7 @@ public class BuscaGulosa {
 	    	vetor_ordenado.imprime();
 	    	
 	    	if ( vetor_ordenado.valores[0] != null ) {
+	    		caminho.add(vetor_ordenado.valores[0]);
     			buscar(vetor_ordenado.valores[0]);
     		}
 	    	
@@ -54,7 +60,7 @@ public class BuscaGulosa {
 			    for ( int i = 0; i < ultima_posicao + 1; i++) {
 			    	posicao = i;
 			    	
-			    	if ( valores[i].distancia > adjacente.distancia ) {
+			    	if ( valores[i].distancia() > adjacente.distancia() ) {
 			    		break;
 			    	}
 			      

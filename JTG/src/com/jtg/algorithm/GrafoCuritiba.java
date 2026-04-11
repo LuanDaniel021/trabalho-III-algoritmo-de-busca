@@ -19,6 +19,9 @@ public class GrafoCuritiba {
 	public Vertice campo_largo    = new Vertice("Campo Largo",          27);
 	public Vertice curitiba       = new Vertice("Curitiba",              0);
 
+	Heuristica pedagio = adj -> +100.0;
+	Heuristica turismo = adj -> -100.0;
+
 	{
 		/**
 		 * Porto União

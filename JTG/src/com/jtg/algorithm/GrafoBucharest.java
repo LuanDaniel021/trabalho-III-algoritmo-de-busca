@@ -2,26 +2,30 @@ package com.jtg.algorithm;
 
 public class GrafoBucharest {
 
-	public Vertice arad      = new Vertice("Arad",      366);
-	public Vertice zerind    = new Vertice("Zerind",    374);
-	public Vertice oradea    = new Vertice("Oradea",    380);
-	public Vertice sibiu     = new Vertice("Sibiu",     253);
-	public Vertice timisoara = new Vertice("Timisoara", 329);
-	public Vertice lugoj     = new Vertice("Lugoj",     244);
-	public Vertice mehadia   = new Vertice("Mehadia",   241);
-	public Vertice dobreta   = new Vertice("Dobreta",   242);
-	public Vertice craiova   = new Vertice("Craiova",   160);
-	public Vertice rimnicu   = new Vertice("Rimnicu Vilcea",   193);
-	public Vertice fagaras   = new Vertice("Fagaras",   178);
-	public Vertice pitesti   = new Vertice("Pitesti",    98);
-	public Vertice bucharest = new Vertice("Bucharest",   0);
-	public Vertice giurgiu   = new Vertice("Giurgiu",    77);
-	public Vertice urziceni  = new Vertice("Urziceni",   80);
-	public Vertice hirsova   = new Vertice("Hirsova",   151);
-	public Vertice eforie    = new Vertice("Eforie",    161);
-	public Vertice vaslui    = new Vertice("Vaslui",    199);
-	public Vertice iasi      = new Vertice("Iasi",      226);
-	public Vertice neamt     = new Vertice("Neamt",     234);
+	public Vertice arad      = new Vertice("Arad",           366);
+	public Vertice zerind    = new Vertice("Zerind",         374);
+	public Vertice oradea    = new Vertice("Oradea",         380);
+	public Vertice sibiu     = new Vertice("Sibiu",          253);
+	public Vertice timisoara = new Vertice("Timisoara",      329);
+	public Vertice lugoj     = new Vertice("Lugoj",          244);
+	public Vertice mehadia   = new Vertice("Mehadia",        241);
+	public Vertice dobreta   = new Vertice("Dobreta",        242);
+	public Vertice craiova   = new Vertice("Craiova",        160);
+	public Vertice rimnicu   = new Vertice("Rimnicu Vilcea", 193);
+	public Vertice fagaras   = new Vertice("Fagaras",        178);
+	public Vertice pitesti   = new Vertice("Pitesti",         98);
+	public Vertice bucharest = new Vertice("Bucharest",        0);
+	public Vertice giurgiu   = new Vertice("Giurgiu",         77);
+	public Vertice urziceni  = new Vertice("Urziceni",        80);
+	public Vertice hirsova   = new Vertice("Hirsova",        151);
+	public Vertice eforie    = new Vertice("Eforie",         161);
+	public Vertice vaslui    = new Vertice("Vaslui",         199);
+	public Vertice iasi      = new Vertice("Iasi",           226);
+	public Vertice neamt     = new Vertice("Neamt",          234);
+
+	
+	Heuristica pedagio = adj -> +100.0;
+	Heuristica turismo = adj -> -100.0;
 
 	{
 		/**
@@ -52,11 +56,16 @@ public class GrafoBucharest {
 		/**
 		 * Sibiu
 		 */
+
+		Adjacente sibiu_rimnicu = new Adjacente(rimnicu, 80);
+
+		sibiu_rimnicu.pedagio = pedagio;
+
 		sibiu.adiciona_adjacentes(
 			new Adjacente(oradea, 151),
 			new Adjacente(arad,   140),
 			new Adjacente(fagaras, 99),
-			new Adjacente(rimnicu, 80)
+			sibiu_rimnicu
 		);
 
 		/**

@@ -22,14 +22,40 @@ public class SearchView extends BorderPane {
 	@Layout( region = "center" )
 	BorderPane viewport = new BorderPane() {
 		
+		
+		@Styles(
+		    spacing = "5",
+		    background_color = "#f4f4f4",
+		    padding = "0 0 1 0",
+		    border_color = "#ddd",
+		    border_width = "0 0 1 0"
+		)
+		@Styles(
+			target = "Button",
+	        background_color = "transparent",
+	        border_width = "0 0 2 0",
+    		border_color = "#34495e",
+	        padding = "10 20",
+	        text_fill = "#34495e",
+	        font_weight = "bold",
+	        cursor = "hand"
+	    )
+		@Styles(
+			target = "Button:hover",
+			background_color = "#e1f5fe",
+			border_color = "#3498db",
+			text_fill = "#3498db",
+			state = "hover"
+		)
 		@Layout( region = "top" )
 		HBox header = new HBox() {
-			
-			@ID( "btn-switch-Arad/Bucareste" )
-			Button btn_switch_A = new Button("Arad - Bucareste");
-			
-			@ID( "btn-switch-User/Curitiba" )
-			Button btn_switch_B = new Button("____ -  Curitiba");
+
+		    @ID("tab-arad")
+		    Button btn_tab_A = new Button("  Mapa - Arad  ");
+
+		    @ID("tab-curitiba")
+		    Button btn_tab_B = new Button("Mapa - Curitiba");
+
 		};
 
 		@ID("view-content")
@@ -59,7 +85,7 @@ public class SearchView extends BorderPane {
 			font_weight = "bold"
 		)
 		@Layout( region = "center" )
-	    Pane viewcontent = new Pane();
+	    Pane content = new Pane();
 	};
 
     @ID( "sidebar" )
@@ -80,7 +106,7 @@ public class SearchView extends BorderPane {
         	text_fill = "#2c3e50"
         )
         @Layout( region = "top" )
-        Label title = new Label("ConfiguraÃ§Ã£o de Busca");
+        Label title = new Label("Configuração de Busca");
 
         @ID( "settings-grid" )
         @Styles( spacing = "20" )
@@ -115,9 +141,11 @@ public class SearchView extends BorderPane {
 
         	};
         	
+        	@ID("pedagio-check-box")
         	CheckBox pedagio = new CheckBox( "Evitar pedagios ");
-        		
-        	CheckBox turitico = new CheckBox( "Priorizar pontos turisticos" );
+
+        	@ID("turismo-check-box")
+        	CheckBox turismo = new CheckBox( "Priorizar pontos turisticos" );
 
         };
 
