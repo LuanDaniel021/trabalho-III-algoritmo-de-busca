@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 @SuppressWarnings("unused")
@@ -44,17 +46,51 @@ public class ResultView extends BorderPane {
         	font_size = "14",
         	font_family = "Monospaced"
         )
-        VBox stats = new VBox() {
-			Label l1 = new Label("Caminho Total: 152.4 units");
-            Label l2 = new Label("Nós Explorados: 42");
-            Label l3 = new Label("Tempo Decorrido: 124ms");
-        };
+        
+        HBox data_grid = new HBox() {
+        	@Styles(
+            	hgrow = "ALWAYS"
+            )
+        	VBox content_algoA = new VBox() {
+        		
+        		VBox header = new VBox() {
+	        		Label name = new Label("GULOSO");
+	        		Label l1 = new Label("Caminho Total: 152.4 units");
+	        		Label l2 = new Label("Nós Explorados: 42");
+	        		Label l3 = new Label("Tempo Decorrido: 124ms");
+        		};
 
-        @ID( "path-list" )
-        @Styles( pref_height = "150" )
-        ListView<String> pathDetails = new ListView<String>() {{
-            getItems().addAll("Origem: A", "Passagem: B", "Passagem: F", "Destino: G");
-        }};
+        		@Styles( pref_height = "150" )
+                ListView<String> pathDetails = new ListView<String>() {{
+                    getItems().addAll("Origem: A", "Passagem: B", "Passagem: F", "Destino: G");
+                }};
+
+            };
+
+            @Styles(
+            	hgrow = "ALWAYS"
+            )
+            VBox content_algoB = new VBox() {
+            	
+            	VBox header = new VBox() {
+	        		Label name = new Label("AESTRELA");
+	        		Label l1 = new Label("Caminho Total: 152.4 units");
+	        		Label l2 = new Label("Nós Explorados: 42");
+	        		Label l3 = new Label("Tempo Decorrido: 124ms");
+        		};
+
+                @Styles( pref_height = "150" )
+                ListView<String> pathDetails = new ListView<String>() {{
+                    getItems().addAll("Origem: A", "Passagem: B", "Passagem: F", "Destino: G");
+                }};
+
+            };
+            
+            {
+            	//setHgrow(content_algoA, Priority.ALWAYS);
+            	//setHgrow(content_algoB, Priority.ALWAYS);
+            }
+        };
 
         @ID("btn-action")
         @Styles(

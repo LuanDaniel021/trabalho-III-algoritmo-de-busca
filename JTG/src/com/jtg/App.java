@@ -39,7 +39,20 @@ public final class App extends Application {
 
 	public Map<String, Cidade> map;
 
+
 	public void start(Stage stage) throws Exception {
+		Document doc = new Document( Screen.class );
+
+		stage.setTitle( "App - Trabalho");
+
+		stage.setScene( doc.getScene() );
+
+		stage.setWidth( 900 );
+
+		stage.show();
+	}
+		
+	public void start1(Stage stage) throws Exception {
 		Document doc = new Document( Screen.class );
 
 		stage.setTitle( "App - Trabalho");
